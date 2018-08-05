@@ -7,10 +7,14 @@ public class EnemyMovement : MonoBehaviour
 
     [SerializeField] float moveSpeed = 1f;
     Rigidbody2D myRigidBody;
+    CapsuleCollider2D capColl;
+    
+
 
     // Use this for initialization
     void Start()
     {
+        capColl = GetComponent<CapsuleCollider2D>();
         myRigidBody = GetComponent<Rigidbody2D>();
     }
 
@@ -35,5 +39,24 @@ public class EnemyMovement : MonoBehaviour
     private void OnTriggerExit2D(Collider2D collision)
     {
         transform.localScale = new Vector2(-(Mathf.Sign(myRigidBody.velocity.x)), 1f);
+
+        
+ 
     }
+
+    private void OnTriggerEnter2D(Collider2D capColl)
+    {
+        BoxCollider2D boxColl = capColl.gameObject.GetComponent<BoxCollider2D>();
+        if (capColl.IsTouchingLayers(LayerMask.GetMask("Physics")))
+        {
+            Debug.Log("Hit");
+            Hit();
+        }
+    }
+
+    public void Hit()
+    {
+        Destroy(gameObject);
+    }
+
 }

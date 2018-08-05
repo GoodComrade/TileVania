@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 50410169329781156}
   - component: {fileID: 70176972174645152}
   - component: {fileID: 114229594519997778}
+  - component: {fileID: 61197814982957152}
   m_Layer: 10
   m_Name: Player
   m_TagString: Untagged
@@ -31,6 +32,35 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1954755942887944
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4156174030536518}
+  - component: {fileID: 114982446651772746}
+  m_Layer: 10
+  m_Name: FirePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4156174030536518
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1954755942887944}
+  m_LocalRotation: {x: 0, y: 0, z: 0.38268343, w: 0.92387956}
+  m_LocalPosition: {x: 0.78999996, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4492581584514086}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 45}
 --- !u!4 &4492581584514086
 Transform:
   m_ObjectHideFlags: 1
@@ -38,9 +68,10 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1935923696095750}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.11, y: 1.6, z: 0}
+  m_LocalPosition: {x: 2.74, y: 1.8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 4156174030536518}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -64,8 +95,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!70 &70176972174645152
-CapsuleCollider2D:
+--- !u!61 &61197814982957152
+BoxCollider2D:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -76,8 +107,33 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.04, y: -0.12}
-  m_Size: {x: 0.45, y: 0.77}
+  m_Offset: {x: -0.06671053, y: -0.4474268}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.032258, y: 1.032258}
+    newSize: {x: 0.38, y: 0.38}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.39099252, y: 0.10514641}
+  m_EdgeRadius: 0
+--- !u!70 &70176972174645152
+CapsuleCollider2D:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1935923696095750}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 6200000, guid: 8037de01d4934c84c80fbc3c98536209, type: 2}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.061901987, y: -0.08766848}
+  m_Size: {x: 0.61895835, y: 0.83466303}
   m_Direction: 0
 --- !u!95 &95280625055400150
 Animator:
@@ -108,9 +164,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85bf26990354d436fa2cbaa70239cdf7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  facingRight: 1
   runSpeed: 5
-  jumpSpeed: 15
+  jumpSpeed: 17
   climbeSpeed: 5
+  deathKick: {x: 5, y: 10}
+  firingRate: 1
+--- !u!114 &114982446651772746
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1954755942887944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 453081aeb5d5e5644bcf3cf154ba017b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectile: {fileID: 50881836115435910, guid: d1538710fa1aac1468d92f7451a9c69a,
+    type: 2}
+  speed: 20
 --- !u!212 &212473441432537040
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -144,9 +217,9 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 531835661
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300010, guid: 801823442a44549469cfde02b70fef05, type: 3}
+  m_Sprite: {fileID: 21300014, guid: c9fd679bab6ed3149a91d4dacfcf2c26, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

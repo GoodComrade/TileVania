@@ -6,33 +6,76 @@ using UnityStandardAssets.CrossPlatformInput;
 
 public class PlayerController : MonoBehaviour {
 
+    [HideInInspector]
+    public bool facingRight = true;
+    [HideInInspector]
+    public bool jump = false;
+
     [SerializeField] float runSpeed = 5f;
     [SerializeField] float jumpSpeed = 5f;
     [SerializeField] float climbeSpeed = 5f;
+    [SerializeField] Vector2 deathKick = new Vector2(25f, 25f);
 
     bool isAlive = true;
+    public float firingRate = 0.2f;
 
+    private Transform groundCheck;
+    private bool grounded = false;
+
+    PlayerController player;
     Rigidbody2D myRigidBody;
     Animator myAnimator;
-    CapsuleCollider2D myBodyCollider2D;
+    CapsuleCollider2D myBodyCollider;
     BoxCollider2D myFeet;
     float gravityScaleAtStart;
+
+    
 
     void Start()
     {
         myRigidBody = GetComponent<Rigidbody2D>();
         myAnimator = GetComponent<Animator>();
-        myBodyCollider2D = GetComponent<CapsuleCollider2D>();
+        myBodyCollider = GetComponent<CapsuleCollider2D>();
         gravityScaleAtStart = myRigidBody.gravityScale;
         myFeet = GetComponent<BoxCollider2D>();
+        
     }
 
     void Update()
     {
+        if (!isAlive)
+        {
+            return;
+        }
+
         Run();
         ClimbLadder();
         Jump();
-        FlipSprite();
+        //FlipSprite();
+        Die();
+
+        float h = Input.GetAxis("Horizontal");
+
+        // If the input is moving the player right and the player is facing left...
+        if (h > 0 && !facingRight)
+            // ... flip the player.
+            Flip();
+        // Otherwise if the input is moving the player left and the player is facing right...
+        else if (h < 0 && facingRight)
+            // ... flip the player.
+            Flip();
+
+        if (Input.GetMouseButton(0))
+        {
+            myAnimator.SetBool("Attack", true);
+        }
+        else
+        {
+            myAnimator.SetBool("Attack", false);
+        }
+
+        
+            
     }
 
     private void Run()
@@ -66,7 +109,9 @@ public class PlayerController : MonoBehaviour {
 
     private void Jump()
     {
-        if(!myFeet.IsTouchingLayers(LayerMask.GetMask("Ground")))
+        
+
+        if (!myFeet.IsTouchingLayers(LayerMask.GetMask("Ground", "Foreground1", "Climb", "Physics")))
         {
             return;
         }
@@ -75,6 +120,19 @@ public class PlayerController : MonoBehaviour {
         {
             Vector2 jumpVelocityToAdd = new Vector2(0f, jumpSpeed);
             myRigidBody.velocity += jumpVelocityToAdd;
+            
+            
+        }
+    }
+
+    private void Die()
+    {
+        if(myBodyCollider.IsTouchingLayers(LayerMask.GetMask("Enemy", "Hazard")))
+        {
+            isAlive = false;
+            myAnimator.SetTrigger("Die");
+            GetComponent<Rigidbody2D>().velocity = deathKick;
+            FindObjectOfType<GameSessionController>().ProcessPlayerDeath();
         }
     }
 
@@ -86,5 +144,16 @@ public class PlayerController : MonoBehaviour {
         {
             transform.localScale = new Vector2(Mathf.Sign(myRigidBody.velocity.x), 1f);
         }
+    }
+
+    void Flip()
+    {
+        // Switch the way the player is labelled as facing.
+        facingRight = !facingRight;
+
+        // Multiply the player's x local scale by -1.
+        Vector3 theScale = transform.localScale;
+        theScale.x *= -1;
+        transform.localScale = theScale;
     }
 }

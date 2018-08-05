@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Foreground
   layers:
   - Default
   - TransparentFX
@@ -18,12 +19,12 @@ TagManager:
   - Player
   - BackGround
   - Enemy
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Hazard
+  - Props
+  - Interactables
+  - Foreground1
+  - Projectile
+  - Physics
   - 
   - 
   - 
@@ -44,15 +45,33 @@ TagManager:
   - name: BackGround
     uniqueID: 2776887143
     locked: 0
-  - name: ForeGround
-    uniqueID: 2918245551
-    locked: 0
   - name: Climb
     uniqueID: 1949299027
     locked: 0
   - name: Enemy
     uniqueID: 3824607921
     locked: 0
+  - name: Hazard
+    uniqueID: 4217708107
+    locked: 0
+  - name: Physics
+    uniqueID: 1066528345
+    locked: 0
   - name: Player
     uniqueID: 531835661
+    locked: 0
+  - name: Projectile
+    uniqueID: 3792825447
+    locked: 0
+  - name: ForeGround
+    uniqueID: 2918245551
+    locked: 0
+  - name: Foreground1
+    uniqueID: 2820958431
+    locked: 0
+  - name: Props
+    uniqueID: 2224759695
+    locked: 0
+  - name: Interactables
+    uniqueID: 221548263
     locked: 0
