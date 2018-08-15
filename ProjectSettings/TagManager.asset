@@ -75,3 +75,6 @@ TagManager:
   - name: Interactables
     uniqueID: 221548263
     locked: 0
+  - name: UI Canvas
+    uniqueID: 1932588589
+    locked: 0

@@ -36,7 +36,8 @@ public class TriggerPhysic : MonoBehaviour {
 
         if (compColl)
         {
-            Destroy(gameObject);
-        }
+			//Destroy(gameObject);
+			physicRb.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
+		}
     }
 }
